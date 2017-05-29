@@ -130,7 +130,7 @@ public class CookieEmperor extends CordovaPlugin {
                                 
                                 JSONObject json = null;
 
-                                if (cookies != null || !cookies.isEmpty()) {                                    
+                                if (!cookies.isEmpty()) {                                    
                                     json = new JSONObject();
                                     json.put("cookieValues", cookies);                                    
                                 }
