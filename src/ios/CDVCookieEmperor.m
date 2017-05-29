@@ -51,7 +51,7 @@
 
     if (urlString != nil)
     {
-        NSString* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:urlString]];
+        NSArray* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:urlString]];
  
         if (cookies != nil)
         {
