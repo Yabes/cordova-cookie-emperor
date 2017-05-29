@@ -48,7 +48,6 @@
     CDVPluginResult* pluginResult = nil;
 
     NSString* urlString = [command.arguments objectAtIndex:0];
-    //__block NSString* cookieName = [command.arguments objectAtIndex:1];
 
     if (urlString != nil)
     {
