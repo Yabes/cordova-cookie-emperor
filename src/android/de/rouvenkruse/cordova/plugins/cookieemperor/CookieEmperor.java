@@ -116,7 +116,7 @@ public class CookieEmperor extends CordovaPlugin {
      * @param callbackContext
      * @return
      */
-    private boolean getAllCookie(JSONArray args, final CallbackContext callbackContext) {
+    private boolean getAllCookies(JSONArray args, final CallbackContext callbackContext) {
         try {
             final String url = args.getString(0);
             final String cookieName = args.getString(1);
