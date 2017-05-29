@@ -110,7 +110,7 @@ public class CookieEmperor extends CordovaPlugin {
         return false;
     }
 
-   /**
+  /**
      * returns cookies
      * @param args
      * @param callbackContext
@@ -119,7 +119,6 @@ public class CookieEmperor extends CordovaPlugin {
     private boolean getAllCookies(JSONArray args, final CallbackContext callbackContext) {
         try {
             final String url = args.getString(0);
-            final String cookieName = args.getString(1);
 
             cordova
                     .getThreadPool()
@@ -128,19 +127,14 @@ public class CookieEmperor extends CordovaPlugin {
                             try {
                                 CookieManager cookieManager = CookieManager.getInstance();
                                 String[] cookies = cookieManager.getCookie(url).split("; ");
-                                String cookieValue = "";
-
-                                for (int i = 0; i < cookies.length; i++) {
-                                    if (cookies[i].contains(cookieName + "=")) {
-                                        cookieValue = cookies[i].split("=")[1].trim();
-                                        break;
-                                    }
-                                }
-
+                                
                                 JSONObject json = null;
 
-                                if (cookieValue != "") {
-                                    json = new JSONObject("{cookieValue:\"" + cookieValue + "\"}");
+                                if (cookies.length > 0) {                                    
+                                    json = new JSONObject();
+                                    JSONArray cookiesArray = new JSONArray(Arrays.asList(mStringArray));
+
+                                    json.put("cookieValues", (Object)cookiesArray);                                    
                                 }
 
                                 if (json != null) {
@@ -164,8 +158,8 @@ public class CookieEmperor extends CordovaPlugin {
         }
 
         return false;
-    }    
-    
+    }
+
     /**
      * sets cookie value under given key
      * @param args
