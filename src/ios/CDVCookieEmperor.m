@@ -17,11 +17,11 @@
         [cookies enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSHTTPCookie *cookie = obj;
 
-            if([cookie.name isEqualToString:cookieName])
-            {
+            /*if([cookie.name isEqualToString:cookieName])
+            {*/
                 cookieValue = cookie.value;
                 *stop = YES;
-            }
+            /*}*/
         }];
 
         if (cookieValue != nil)
