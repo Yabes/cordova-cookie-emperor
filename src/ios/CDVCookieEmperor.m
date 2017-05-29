@@ -51,9 +51,9 @@
 
     if (urlString != nil)
     {
-        NSArray* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:urlString]];
+        NSString* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:urlString]];
  
-        if ([cookies count] > 0)
+        if (cookies != nil)
         {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:@{@"cookieValues":cookies}];
         }
