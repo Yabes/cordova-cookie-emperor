@@ -133,7 +133,7 @@ public class CookieEmperor extends CordovaPlugin {
 
                                 if (cookies.length > 0) {                                    
                                     json = new JSONObject();
-                                    JSONArray cookiesArray = new JSONArray(cookies);
+                                    JSONArray cookiesArray = new JSONArray(Arrays.asList(cookies));
 
                                     json.put("cookieValues", cookiesArray);                                    
                                 }
