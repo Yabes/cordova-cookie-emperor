@@ -15,6 +15,7 @@ import android.webkit.CookieManager;
 public class CookieEmperor extends CordovaPlugin {
 
     public static final String ACTION_GET_COOKIE_VALUE = "getCookieValue";
+    public static final String ACTION_GET_ALL_COOKIE_VALUES = "getAllCookieValues";
     public static final String ACTION_SET_COOKIE_VALUE = "setCookieValue";
     public static final String ACTION_CLEAR_COOKIES = "clearCookies";
 
@@ -22,6 +23,9 @@ public class CookieEmperor extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
         if (ACTION_GET_COOKIE_VALUE.equals(action)) {
             return this.getCookie(args, callbackContext);
+        }
+        else if (ACTION_GET_ALL_COOKIE_VALUES.equals(action)) {
+            return this.getAllCookies(args, callbackContext);
         }
         else if (ACTION_SET_COOKIE_VALUE.equals(action)) {
             return this.setCookie(args, callbackContext);
@@ -106,6 +110,62 @@ public class CookieEmperor extends CordovaPlugin {
         return false;
     }
 
+   /**
+     * returns cookies
+     * @param args
+     * @param callbackContext
+     * @return
+     */
+    private boolean getAllCookies(JSONArray args, final CallbackContext callbackContext) {
+        try {
+            final String url = args.getString(0);
+            final String cookieName = args.getString(1);
+
+            cordova
+                    .getThreadPool()
+                    .execute(new Runnable() {
+                        public void run() {
+                            try {
+                                CookieManager cookieManager = CookieManager.getInstance();
+                                String[] cookies = cookieManager.getCookie(url).split("; ");
+                                String cookieValue = "";
+
+                                for (int i = 0; i < cookies.length; i++) {
+                                    if (cookies[i].contains(cookieName + "=")) {
+                                        cookieValue = cookies[i].split("=")[1].trim();
+                                        break;
+                                    }
+                                }
+
+                                JSONObject json = null;
+
+                                if (cookieValue != "") {
+                                    json = new JSONObject("{cookieValue:\"" + cookieValue + "\"}");
+                                }
+
+                                if (json != null) {
+                                    PluginResult res = new PluginResult(PluginResult.Status.OK, json);
+                                    callbackContext.sendPluginResult(res);
+                                }
+                                else {
+                                    callbackContext.error("Cookie not found!");
+                                }
+                            }
+                            catch (Exception e) {
+                                callbackContext.error(e.getMessage());
+                            }
+                        }
+                    });
+
+            return true;
+        }
+        catch(JSONException e) {
+            callbackContext.error("JSON parsing error");
+        }
+
+        return false;
+    }    
+    
     /**
      * sets cookie value under given key
      * @param args
