@@ -15,7 +15,6 @@ import android.webkit.CookieManager;
 public class CookieEmperor extends CordovaPlugin {
 
     public static final String ACTION_GET_COOKIE_VALUE = "getCookieValue";
-    public static final String ACTION_GET_ALL_COOKIE_VALUES = "getAllCookieValues";
     public static final String ACTION_SET_COOKIE_VALUE = "setCookieValue";
     public static final String ACTION_CLEAR_COOKIES = "clearCookies";
 
@@ -23,9 +22,6 @@ public class CookieEmperor extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
         if (ACTION_GET_COOKIE_VALUE.equals(action)) {
             return this.getCookie(args, callbackContext);
-        }
-        else if (ACTION_GET_ALL_COOKIE_VALUES.equals(action)) {
-            return this.getAllCookies(args, callbackContext);
         }
         else if (ACTION_SET_COOKIE_VALUE.equals(action)) {
             return this.setCookie(args, callbackContext);
@@ -109,8 +105,7 @@ public class CookieEmperor extends CordovaPlugin {
 
         return false;
     }
-    
-  
+
     /**
      * sets cookie value under given key
      * @param args
