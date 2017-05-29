@@ -55,7 +55,7 @@
  
         if ([cookies count] > 0)
         {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:@{@"cookieValue":cookies}];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:@{@"cookieValues":cookies}];
         }
         else
         {
