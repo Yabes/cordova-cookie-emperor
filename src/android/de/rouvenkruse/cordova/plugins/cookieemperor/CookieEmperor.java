@@ -11,8 +11,6 @@ import org.json.JSONException;
 import android.os.Build;
 import android.webkit.ValueCallback;
 import android.webkit.CookieManager;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CookieEmperor extends CordovaPlugin {
 
@@ -135,7 +133,7 @@ public class CookieEmperor extends CordovaPlugin {
                                 if (cookies.length > 0) {                                    
                                     json = new JSONObject();
                                     JSONArray cookiesArray = new JSONArray(cookies);
-                                    json.put("cookieValues", /*(object)*/cookies);                                    
+                                    json.put("cookieValues", cookies);                                    
                                 }
 
                                 if (json != null) {
