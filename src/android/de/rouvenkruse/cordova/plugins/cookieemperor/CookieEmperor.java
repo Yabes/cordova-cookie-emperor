@@ -110,57 +110,7 @@ public class CookieEmperor extends CordovaPlugin {
         return false;
     }
     
-    /**
-     * returns cookie under given key
-     * @param args
-     * @param callbackContext
-     * @return
-     */
-    private boolean getAllCookies(JSONArray args, final CallbackContext callbackContext) {
-        try {
-            final String url = args.getString(0);
-            final String cookieName = args.getString(1);
-
-            cordova
-                    .getThreadPool()
-                    .execute(new Runnable() {
-                        public void run() {
-                            try {
-                                CookieManager cookieManager = CookieManager.getInstance();
-                                String[] cookies = cookieManager.getCookie(url).split("; ");
-                                
-                                JSONObject json = null;
-
-                                if (cookies.length > 0) {                                    
-                                    json = new JSONObject();
-                                    JSONArray cookiesArray = new JSONArray(Arrays.asList(cookies));
-
-                                    json.put("cookieValues", cookiesArray);                                    
-                                }
-
-                                if (json != null) {
-                                    PluginResult res = new PluginResult(PluginResult.Status.OK, json);
-                                    callbackContext.sendPluginResult(res);
-                                }
-                                else {
-                                    callbackContext.error("Cookie not found!");
-                                }
-                            }
-                            catch (Exception e) {
-                                callbackContext.error(e.getMessage());
-                            }
-                        }
-                    });
-
-            return true;
-        }
-        catch(JSONException e) {
-            callbackContext.error("JSON parsing error");
-        }
-
-        return false;
-    }
-
+  
     /**
      * sets cookie value under given key
      * @param args
